@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">mayorOmenor</string>
+    <string name="usuario">User:</string>
+    <string name="contraseña">Password:</string>
+    <string name="acceso">Access</string>
+    <string name="idioma">Language</string>
+    <string name="registro">New account</string>
+    <string name="selIdioma">Choose language</string>
+    <string name="errorIdioma">Choose language</string>
+    <string name="exitoIdioma">has selected</string>
+    <string name="exitoRegistro">Account has been created successfully</string>
+    <string name="cancelar">Cancel</string>
+    <string name="noExisteUsuario">The username entered does not exist.</string>
+    <string name="conIncorrecta">Incorrect password.</string>
+    <string name="registroVacio">"Enter all the fields. "</string>
+    <string name="registroNombreExiste">The username entered already exists.</string>
+    <string name="registroFallo">" Registration failed, try again later."</string>
+    <string name="registroContraNoCoincide">The two passwords do not match.</string>
+    <string name="Contraseña2">" Retype password:"</string>
+    <string name="cerrarSesion">SIGN OFF</string>
+    <string name="jugar">Play</string>
+    <string name="puntos">"Points"</string>
+    <string name="mas">Further</string>
+    <string name="menos">Less</string>
+    <string name="abandono">Do you want to leave the game halfway?</string>
+    <string name="positivo">Yes</string>
+    <string name="fallo0">You have failed</string>
+    <string name="fallo1">points earned.</string>
+    <string name="finalpartida">GAME OVER</string>
+    <string name="rankingpersonal">Personal Ranking</string>
+    <string name="rankingglobal">Global Ranking</string>
+    <string name="cerrar">Close</string>
+    <string name="userElegido">User selected:</string>
+    <string name="vacio">Empty</string>
+    <string name="falloGuardado">Failed to save</string>
+    <string name="exitoGuardado">" Saved successfully"</string>
+</resources>

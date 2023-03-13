@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">mayorOmenor</string>
+    <string name="usuario">Usuario:</string>
+    <string name="contraseña">Contraseña:</string>
+    <string name="acceso">Acceder</string>
+    <string name="idioma">Idioma</string>
+    <string name="registro">Registrarse</string>
+    <string name="selIdioma">Selecciona un idioma</string>
+    <string name="errorIdioma">Selecciona idioma</string>
+    <string name="exitoIdioma">Has seleccionado</string>
+    <string name="exitoRegistro">Se ha creado correctamente la cuenta</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="noExisteUsuario">No existe el nombre usuario introducido.</string>
+    <string name="conIncorrecta">Contraseña Incorrecta.</string>
+    <string name="registroVacio">Introduce todos los campos.</string>
+    <string name="registroNombreExiste">El nombre de usuario introducido ya existe.</string>
+    <string name="registroFallo">El registro fallo, prueba de nuevo en un tiempo.</string>
+    <string name="registroContraNoCoincide">Las dos contraseñas no coinciden.</string>
+    <string name="Contraseña2">Volver a escribir contraseña:</string>
+    <string name="cerrarSesion">CERRAR SESION</string>
+    <string name="jugar">Jugar</string>
+    <string name="puntos">"Puntos"</string>
+    <string name="mas">Mas</string>
+    <string name="menos">Menos</string>
+    <string name="abandono">¿Desea abandonar la partida a medias?</string>
+    <string name="positivo">Si</string>
+    <string name="fallo0">Has fallado</string>
+    <string name="fallo1">puntos obtenidos.</string>
+    <string name="finalpartida">FIN PARTIDA</string>
+    <string name="rankingpersonal">Ranking Personal</string>
+    <string name="rankingglobal">Ranking Global</string>
+    <string name="cerrar">Cerrar</string>
+    <string name="userElegido">Usuario seleccionado:</string>
+    <string name="vacio">Vacio</string>
+    <string name="falloGuardado">Fallo en guardado</string>
+    <string name="exitoGuardado">Guardado correctamente</string>
+</resources>

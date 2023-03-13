@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">mayoromenor</string>
+    <string name="usuario">Usuario:</string>
+    <string name="contraseña">Contraseña:</string>
+    <string name="acceso">Acceder</string>
+    <string name="idioma">Idioma</string>
+    <string name="registro">Registro</string>
+    <string name="selIdioma">Selecciona un idioma</string>
+    <string name="errorIdioma">Selecciona idioma</string>
+    <string name="exitoIdioma">Has seleccionado</string>
+    <string name="exitoRegistro">Se ha creado correctamente la cuenta</string>
+    <string name="cancelar">cancelar</string>
+    <string name="noExisteUsuario">no existe el usuario introducido</string>
+    <string name="conIncorrecta">Contraseña Incorrecta</string>
+    <string name="registroVacio">Introduce todos los campos.</string>
+    <string name="registroNombreExiste">El nombre de usuario introducido ya existe</string>
+    <string name="registroFallo">El registro fallo, prueba de nuevo.</string>
+    <string name="registroContraNoCoincide">Las dos contraseñas no coinciden.</string>
+    <string name="Contraseña2">Volver a escribir contraseña:</string>
+    <string name="cerrarSesion">cerrasSesion</string>
+    <string name="jugar">Jugar</string>
+    <string name="puntos">Puntos</string>
+    <string name="mas">mas</string>
+    <string name="menos">menos</string>
+    <string name="abandono">abandonar</string>
+    <string name="positivo">si</string>
+    <string name="fallo0">texto1</string>
+    <string name="fallo1">texto2</string>
+    <string name="finalpartida">Fin partida</string>
+    <string name="rankingpersonal">rp</string>
+    <string name="rankingglobal">rg</string>
+    <string name="cerrar">cerrar</string>
+    <string name="userElegido">vacio</string>
+    <string name="vacio">vacio</string>
+    <string name="falloGuardado">fallito</string>
+    <string name="exitoGuardado">exito</string>
+</resources>
