@@ -15,7 +15,7 @@ public class idiomaDialogo extends DialogFragment {
     public String seleccion;
 
     public interface idiomaListener {
-        //Metodo que de cambio cambio de idioma
+        //Metodo que de cambio de idioma
         public void seleccionarIdioma(DialogFragment dialog);
     }
     idiomaListener listener;

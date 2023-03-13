@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.util.Locale;
 import java.util.Objects;
 
+//Clase de la pantalla de logueo
 public class Login extends AppCompatActivity
                           implements idiomaDialogo.idiomaListener{
     private static String idioma = "";
@@ -31,6 +32,7 @@ public class Login extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Recogida de variable en caso de rotar o estar en segundo plano
         usuarioIntroducido = findViewById(R.id.editTextUsuario);
         usuarioIntroducido.setText(usuario);
     }
@@ -50,6 +52,7 @@ public class Login extends AppCompatActivity
         }
         savedInstanceState.putString("idioma", idioma);
 
+        //Almacenamos usuario introducido
         usuario = usuarioIntroducido.getText().toString();
         savedInstanceState.putString("usuario", usuario);
     }
@@ -146,11 +149,14 @@ public class Login extends AppCompatActivity
         nuevoIdioma = new idiomaDialogo();
         nuevoIdioma.show(getSupportFragmentManager(),"idioma");
     }
+
+    //Dialogo al pulsar boton Idioma
     public void seleccionarIdioma(DialogFragment dialog){
         Log.i("Login", "Idioma seleccionado:" + nuevoIdioma.seleccion);
 
         Locale nuevoIdiomaSel = null;
 
+        //Opciones de idiomas
         if (nuevoIdioma.seleccion == "Español"){
            idioma = "es";
            nuevoIdiomaSel = new Locale("es");

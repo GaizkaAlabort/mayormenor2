@@ -9,8 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-public class abandonarJuego extends DialogFragment {
 //Dialogo para la hora de salir de la actividad del juego, poder cancelar salida
+public class abandonarJuego extends DialogFragment {
 
     public interface abandonarListener {
         //Metodo que se implementa en usuario (El cual hace la llamada al dialogo)

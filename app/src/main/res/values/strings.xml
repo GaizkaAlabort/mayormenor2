@@ -30,7 +30,7 @@
     <string name="rankingpersonal">rp</string>
     <string name="rankingglobal">rg</string>
     <string name="cerrar">cerrar</string>
-    <string name="userElegido">vacio</string>
+    <string name="userElegido">usuario sel</string>
     <string name="vacio">vacio</string>
     <string name="falloGuardado">fallito</string>
     <string name="exitoGuardado">exito</string>

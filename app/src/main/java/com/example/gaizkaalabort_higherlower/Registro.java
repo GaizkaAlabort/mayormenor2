@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
+//Clase de la pantalla registro
 public class Registro extends AppCompatActivity {
 
     private static String idioma;
@@ -36,6 +37,7 @@ public class Registro extends AppCompatActivity {
             usuario = "";
         }
 
+        //Recogida de usuario en case de rotar o dejar en segundo plano
         usuarioIntroducido = findViewById(R.id.editTextUsuario);
         usuarioIntroducido.setText(usuario);
     }
@@ -66,6 +68,7 @@ public class Registro extends AppCompatActivity {
 
     public void registro (View view){
         Log.i("Registro", " Ha pulsado registrarse ");
+        //Recogida de variables de los campos
         EditText nombre = findViewById(R.id.editTextUsuario);
         String usuario = nombre.getText().toString();
         EditText contra = findViewById(R.id.editTextContrasena);
@@ -81,32 +84,38 @@ public class Registro extends AppCompatActivity {
 
             if(contraseña.equals(reContraseña)){
                 //Si coinciden las contraseñas:
+                //  - Inicializar base de datos
                 BD GestorBD = new BD (this, "NombreBD", null, 1);
                 SQLiteDatabase bd = GestorBD.getWritableDatabase();
 
+                //  - Realizar consulta para comprobar si existe usuario y recoger en cursor
                 String[] argumentos = new String[] {usuario};
                 String[] campos = new String[] {"Nombre"};
                 Cursor cu = bd.query("Usuarios", campos,"Nombre=?",argumentos,null,null,null);
 
                 if(cu.getCount()>0){
                     //Si existe el nombre de usuario introducido:
+                    //  - Vaciamos campos
                     nombre.setText("");
                     contra.setText("");
                     contra2.setText("");
+                    //  - Informamos error
                     Toast.makeText(getApplicationContext(),getString(R.string.registroNombreExiste),Toast.LENGTH_LONG).show();
 
                 } else {
                     //Si no existe el nombre de usuario: Registramos
+                    //  - Realizamos insercion en base de datos
                     ContentValues contenido = new ContentValues();
                     contenido.put("Nombre",usuario);
                     contenido.put("Contraseña",contraseña);
                     long resultado = bd.insert("Usuarios",null,contenido);
 
                     if (resultado == -1){
-                        //ERROR DE INSERCION
+                        //Notificar ERROR DE INSERCION
                         Toast.makeText(getApplicationContext(),getString(R.string.registroFallo),Toast.LENGTH_LONG).show();
 
                     } else {
+                        //Cerrar intent como resultado de registrarse correctamente
                         Intent intent = new Intent();
                         intent.putExtra("idiomaRegistro",idioma);
                         setResult(-1,intent);
@@ -116,20 +125,23 @@ public class Registro extends AppCompatActivity {
 
             } else {
                 //Si no coinciden las contraseñas:
+                //  - Vaciamos campos de contraseña
                 contra.setText("");
                 contra2.setText("");
+                //  - Informamos error
                 Toast.makeText(getApplicationContext(),getString(R.string.registroContraNoCoincide),Toast.LENGTH_LONG).show();
             }
         }
     }
 
+    //Boton de cerrar para volver a la pantalla de login
     public void cancelar (View view){
         Intent intent = new Intent();
         setResult(1,intent);
         finish();
     }
 
-    //SE actualiza el idioma al llegar a la pantalla de registro
+    //Se actualiza el idioma al llegar a la pantalla de registro
     public void actualizarIdioma(Locale nuevoIdiomaSel){
         Locale.setDefault(nuevoIdiomaSel);
         Configuration configuration = getBaseContext().getResources().getConfiguration();
