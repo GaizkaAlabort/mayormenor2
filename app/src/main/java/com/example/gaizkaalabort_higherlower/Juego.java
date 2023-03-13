@@ -238,7 +238,7 @@ public class Juego extends AppCompatActivity
     protected void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         Log.i("Prueba", "GUARDANDO...");
         super.onSaveInstanceState(savedInstanceState);
-        //Almacenamos idioma de la aplicacion
+        //Almacenamos idioma de la aplicacion y valores de opciones y puntos
         savedInstanceState.putString("idioma", idioma);
         savedInstanceState.putString("opcionA",String.valueOf(numeroA));
         savedInstanceState.putString("opcionB",String.valueOf(numeroB));
@@ -248,7 +248,7 @@ public class Juego extends AppCompatActivity
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         Log.i("Prueba", "CARGANDO...");
         super.onRestoreInstanceState(savedInstanceState);
-        //Recuperamos idioma de la aplicacion
+        //Recuperamos idioma de la aplicacion y valores de opciones y puntos
         idioma = savedInstanceState.getString("idioma");
 
         puntos = Integer.parseInt(savedInstanceState.getString("puntos"));
@@ -258,6 +258,8 @@ public class Juego extends AppCompatActivity
         Locale nuevaloc = new Locale(idioma);
         actualizarIdioma(nuevaloc);
     }
+
+    //Funcion para actualizar idioma en caso de ser distinta
     public void actualizarIdioma(Locale nuevoIdiomaSel){
         Locale.setDefault(nuevoIdiomaSel);
         Configuration configuration = getBaseContext().getResources().getConfiguration();
@@ -271,23 +273,28 @@ public class Juego extends AppCompatActivity
     @Override
     public boolean onKeyDown (int key, KeyEvent event) {
         if (key == event.KEYCODE_BACK){
+            //Al pulsar la tecla de volver a la actividad anterior, aparecera el dialogo de abandonarJuego
             Log.i("Prueba", "SALIENDO...");
             abandonarJuego abandono = new abandonarJuego();
             abandono.show(getSupportFragmentManager(),"abandonar");
         }
         return super.onKeyDown(key,event);
     }
+
+    //Funcion de salir(), relacionada al dialogo de pulsar el boton de volver a la actividad anterior
     @Override
     public void salir(DialogFragment dialog) {
+        //Inicializa las variables
         numeroA=-1;
         numeroB=-1;
         puntos=0;
+        //Añade codigo al intent para volver a Usuario
         Intent intent = new Intent();
         setResult(-1,intent);
         finish();
     }
 
-    //Boton oculto al pulsar en puntos
+    //Boton oculto al pulsar en "puntos", abre el dialogo de abandonarJuego
     public void salirForzado(View view){
         Log.i("Prueba", "SALIENDO...");
         abandonarJuego abandono = new abandonarJuego();
