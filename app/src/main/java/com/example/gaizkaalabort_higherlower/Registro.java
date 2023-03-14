@@ -32,9 +32,10 @@ public class Registro extends AppCompatActivity {
 
         //Recogida de idioma
         Bundle extras = getIntent().getExtras();
-        if (extras != null && idioma==null) {
+        if (extras != null && idioma!=extras.getString("idiomaLogin")) {
             idioma = extras.getString("idiomaLogin");
             usuario = "";
+            Log.i("Registro", idioma);
         }
 
         //Recogida de usuario en case de rotar o dejar en segundo plano
@@ -47,19 +48,23 @@ public class Registro extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         //Almacenamos idioma de la aplicacion
         savedInstanceState.putString("idioma", idioma);
+        Log.i("Registro save", idioma);
 
         //Almacenamos el usuario (en caso de haberlo introducido)
         usuario = usuarioIntroducido.getText().toString();
         savedInstanceState.putString("usuario", usuario);
+        Log.i("Registro save", usuario);
     }
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         //Recuperamos idioma de la aplicacion y usuario a registrar
         idioma = savedInstanceState.getString("idioma");
+        Log.i("Registro recuperar", idioma);
 
         usuario = savedInstanceState.getString("usuario");
         usuarioIntroducido.setText(usuario);
+        Log.i("Registro recuperar", usuario);
 
         //Actualizamos idioma
         Locale nuevaloc = new Locale(idioma);

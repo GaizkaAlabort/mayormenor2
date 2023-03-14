@@ -42,14 +42,7 @@ public class Login extends AppCompatActivity
         super.onSaveInstanceState(savedInstanceState);
         //Almacenamos idioma de la aplicacion
             //En caso de no haber elegido idioma, se vera en que idioma estaba para asignarlo
-        if (idioma.equals("")){
-            TextView lengua = findViewById(R.id.usuario);
-            if (lengua.getText().toString().equals("User:")){
-                idioma = "en";
-            } else {
-                idioma = "es";
-            }
-        }
+        recogidaIdioma();
         savedInstanceState.putString("idioma", idioma);
 
         //Almacenamos usuario introducido
@@ -92,6 +85,8 @@ public class Login extends AppCompatActivity
             String con = cu.getString(0);
 
             if (Objects.equals(con, contraseña)) {
+                recogidaIdioma();
+
                 //Coincide contraseña: se accede a siguiente pantalla
                 cu.close();
                 bd.close();
@@ -118,11 +113,25 @@ public class Login extends AppCompatActivity
     }
 
     public void registrarse (View view){
+        recogidaIdioma();
+
         //Si se pulsa registrar, se recoge idioma y se pasa a la respectiva pantalla
         Log.i("Login", "Idioma:" + idioma);
         Intent registro = new Intent (this, Registro.class);
         registro.putExtra("idiomaLogin",idioma);
         startActivityForResult(registro,111);
+    }
+
+    //Recogida de idioma en caso de no elegir idioma
+    public void recogidaIdioma(){
+        if (idioma.equals("")){
+            TextView lengua = findViewById(R.id.usuario);
+            if (lengua.getText().toString().equals("User:")){
+                idioma = "en";
+            } else {
+                idioma = "es";
+            }
+        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -52,7 +52,7 @@ public class Juego extends AppCompatActivity
 
         //Se recoge el idioma como extra
         Bundle extras = getIntent().getExtras();
-        if (extras != null && idioma==null) {
+        if (extras != null && idioma!=extras.getString("idiomaUsuario")) {
             idioma = extras.getString("idiomaUsuario");
         }
 
@@ -215,7 +215,7 @@ public class Juego extends AppCompatActivity
         NotificationManager elManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         //Notificacion
         NotificationCompat.Builder elBuilder = new NotificationCompat.Builder(this, channelID);
-        elBuilder.setSmallIcon(R.mipmap.mayormenor_round)
+        elBuilder.setSmallIcon(R.mipmap.logo)
                 .setContentTitle(getString(R.string.finalpartida))
                 .setContentText(getString(R.string.fallo0)+", "+ puntos + " "+getString(R.string.fallo1))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
