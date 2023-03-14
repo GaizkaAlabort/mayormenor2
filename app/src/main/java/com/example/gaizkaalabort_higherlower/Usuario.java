@@ -23,10 +23,12 @@ import java.util.Calendar;
 import java.util.Locale;
 
 //Clase de pantalla usuario despues de loguearse
-public class Usuario extends AppCompatActivity implements Ranking_global_fragment.listenerDelFragment{
+public class Usuario extends AppCompatActivity implements Ranking_global_fragment.listenerDelFragment,
+                                                        Ranking_personal_fragment.listenerDelFragment{
 
     private static String idioma;
     private static String usuario;
+    SQLiteDatabase bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
 
         //Recogida de variables pasadas como extra
         Bundle extras = getIntent().getExtras();
-        if (extras != null && idioma==null) {
+        if (extras != null && idioma!=extras.getString("idiomaLogin")) {
             idioma = extras.getString("idiomaLogin");
         }
         if (extras != null) {
@@ -49,6 +51,10 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
         TextView usuarioIntroducido = findViewById(R.id.nombre);
         String texto = getString(R.string.usuario) + " "+usuario;
         usuarioIntroducido.setText(texto);
+
+        //Inicializamos base de datos
+        BD GestorBD = new BD (this, "NombreBD", null, 1);
+        bd = GestorBD.getWritableDatabase();
     }
 
     @Override
@@ -100,10 +106,6 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
                     //Si la puntuacion es mayor a cero
                     Log.i("Usuario", "Puntuacion " + puntuacion);
 
-                    //Inicializamos base de datos
-                    BD GestorBD = new BD (this, "NombreBD", null, 1);
-                    SQLiteDatabase bd = GestorBD.getWritableDatabase();
-
                     //Comprobamos si ese usuario tiene esa puntuacion registrada
                     String consulta = "SELECT * FROM Puntuaciones WHERE nombre='"+ usuario +"' AND puntos=" + puntuacion;
                     Cursor cu = bd.rawQuery(consulta,null);
@@ -139,6 +141,10 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
                 }
 
             }
+        } else if (requestCode == 444) {
+            //Actualizar rankings, tras llegar de ranking personal
+            finish();
+            startActivity(getIntent());
         }
     }
 
@@ -195,7 +201,12 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
             //Si esta en vertical, el otro FRAGMENT no existe en la pantalla, por lo que se lanza una nueva actividad (RankingPersonal)
             Intent i= new Intent(this, RankingPersonal.class);
             i.putExtra("contenido",elemento);
-            startActivity(i);
+            startActivityForResult(i,444);
         }
+    }
+
+    @Override
+    public void borradoElemento(String txtUsuario, int numPuntos) {
+        bd.execSQL("DELETE FROM Puntuaciones WHERE nombre='"+ txtUsuario +"' AND puntos="+numPuntos);
     }
 }
