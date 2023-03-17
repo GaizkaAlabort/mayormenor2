@@ -29,7 +29,7 @@ public class idiomaDialogo extends DialogFragment {
         builder.setTitle(getString(R.string.selIdioma));
 
         //Lista de idiomas de la aplicacion, junto a su forma de seleccion
-        final CharSequence[] opciones = {"Español", "English"};
+        final CharSequence[] opciones = {getString(R.string.esp),getString(R.string.eng)};
         builder.setSingleChoiceItems(opciones, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

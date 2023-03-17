@@ -35,4 +35,6 @@
     <string name="vacio">Vacio</string>
     <string name="falloGuardado">Fallo en guardado</string>
     <string name="exitoGuardado">Guardado correctamente</string>
+    <string name="esp">Castellano</string>
+    <string name="eng">Inglés</string>
 </resources>

@@ -4,7 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Registro">
+    tools:context=".Registro"
+    android:background="@drawable/fondoregistro">
+
+    <TextView
+        android:id="@+id/usuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/usuario"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.062" />
+
+    <EditText
+        android:id="@+id/editTextUsuario"
+        android:layout_width="227dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_fondo"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usuario" />
 
     <TextView
         android:id="@+id/contrasena2"
@@ -16,33 +43,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.758" />
+        app:layout_constraintVertical_bias="0.496" />
+
+    <EditText
+        android:id="@+id/editTextContrasena"
+        android:layout_width="227dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_fondo"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contrasena" />
 
     <EditText
         android:id="@+id/editTextContrasena2"
         android:layout_width="227dp"
         android:layout_height="62dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="168dp"
         android:background="@drawable/edit_text_fondo"
         android:ems="10"
         android:inputType="textPassword"
         android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contrasena" />
-
-    <TextView
-        android:id="@+id/usuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/usuario"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.325" />
 
     <TextView
         android:id="@+id/contrasena"
@@ -55,59 +82,41 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.544" />
-
-    <EditText
-        android:id="@+id/editTextUsuario"
-        android:layout_width="227dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/edit_text_fondo"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usuario" />
-
-    <EditText
-        android:id="@+id/editTextContrasena"
-        android:layout_width="227dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/edit_text_fondo"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contrasena" />
+        app:layout_constraintVertical_bias="0.282" />
 
     <Button
         android:id="@+id/registro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="232dp"
+        android:layout_height="48dp"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="528dp"
         android:layout_marginEnd="160dp"
         android:onClick="registro"
         android:text="@string/registro"
+        android:backgroundTint="@color/rojo_logo"
+        app:cornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/cancelar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="232dp"
+        android:layout_height="48dp"
         android:layout_marginStart="142dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="142dp"
         android:onClick="cancelar"
         android:text="@string/cancelar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.615"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registro" />
+        app:layout_constraintTop_toBottomOf="@+id/registro"
+        app:strokeColor="@color/rojo_logo"
+        app:strokeWidth="2dp"
+        android:textColor="@color/rojo_logo"
+        app:cornerRadius="16dp"
+        style="?attr/materialButtonOutlinedStyle"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

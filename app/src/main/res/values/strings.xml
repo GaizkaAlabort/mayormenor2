@@ -34,4 +34,6 @@
     <string name="vacio">vacio</string>
     <string name="falloGuardado">fallito</string>
     <string name="exitoGuardado">exito</string>
+    <string name="esp">Castellano</string>
+    <string name="eng">english</string>
 </resources>

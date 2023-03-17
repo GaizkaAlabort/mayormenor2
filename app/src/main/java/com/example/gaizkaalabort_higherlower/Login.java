@@ -166,10 +166,10 @@ public class Login extends AppCompatActivity
         Locale nuevoIdiomaSel = null;
 
         //Opciones de idiomas
-        if (nuevoIdioma.seleccion == "Español"){
+        if (nuevoIdioma.seleccion == getString(R.string.esp)){
            idioma = "es";
            nuevoIdiomaSel = new Locale("es");
-        } else if (nuevoIdioma.seleccion == "English"){
+        } else if (nuevoIdioma.seleccion == getString(R.string.eng)){
            idioma = "en";
            nuevoIdiomaSel = new Locale("en");
         }

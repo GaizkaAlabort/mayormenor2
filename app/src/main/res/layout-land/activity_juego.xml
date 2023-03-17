@@ -31,7 +31,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.819"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewB" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewB"
+        android:backgroundTint="@color/rojo_logo"/>
 
     <Button
         android:id="@+id/opcionB"

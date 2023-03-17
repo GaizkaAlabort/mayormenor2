@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    tools:context=".Login"
+    android:background="@drawable/fondologin">
 
     <TextView
         android:id="@+id/usuario"
@@ -17,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.162" />
+        app:layout_constraintVertical_bias="0.234" />
 
     <TextView
         android:id="@+id/contrasena"
@@ -30,18 +31,18 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.386" />
+        app:layout_constraintVertical_bias="0.431" />
 
     <EditText
         android:id="@+id/editTextUsuario"
         android:layout_width="227dp"
         android:layout_height="62dp"
-        android:layout_marginStart="92dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/edit_text_fondo"
         android:ems="10"
         android:inputType="textPersonName"
         android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usuario" />
 
@@ -49,26 +50,28 @@
         android:id="@+id/editTextContrasena"
         android:layout_width="227dp"
         android:layout_height="62dp"
-        android:layout_marginStart="92dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/edit_text_fondo"
         android:ems="10"
         android:inputType="textPassword"
         android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contrasena" />
 
     <Button
         android:id="@+id/acceder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="232dp"
+        android:layout_height="60dp"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="160dp"
         android:onClick="loguearse"
+        app:cornerRadius="16dp"
+        android:backgroundTint="@color/rojo_logo"
         android:text="@string/acceso"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextContrasena" />
 
@@ -78,24 +81,41 @@
         android:layout_height="wrap_content"
         android:onClick="cambiarIdioma"
         android:text="@string/idioma"
+        android:backgroundTint="@color/rojo_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.932" />
+        app:layout_constraintVertical_bias="0.963" />
 
     <Button
         android:id="@+id/registro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="232dp"
+        android:layout_height="60dp"
         android:layout_marginStart="142dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="142dp"
         android:onClick="registrarse"
         android:text="@string/registro"
+        android:textColor="@color/rojo_logo"
+        app:cornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acceder"
+        app:strokeColor="@color/rojo_logo"
+        app:strokeWidth="2dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="272dp"
+        android:layout_height="262dp"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/contrasena"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/acceder" />
+        app:srcCompat="@mipmap/logo_foreground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
