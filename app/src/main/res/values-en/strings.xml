@@ -35,4 +35,6 @@
     <string name="vacio">Empty</string>
     <string name="falloGuardado">Failed to save</string>
     <string name="exitoGuardado">" Saved successfully"</string>
+    <string name="esp">Spanish</string>
+    <string name="eng">English</string>
 </resources>

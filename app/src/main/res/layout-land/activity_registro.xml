@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Registro">
+    tools:context=".Registro"
+    android:background="@drawable/fondoregistro">
 
     <EditText
         android:id="@+id/editTextContrasena2"
@@ -35,19 +36,6 @@
         app:layout_constraintStart_toEndOf="@+id/editTextContrasena"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.652" />
-
-    <Button
-        android:id="@+id/cancelar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="cancelar"
-        android:text="@string/cancelar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.925"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.36" />
 
     <TextView
         android:id="@+id/usuario"
@@ -107,15 +95,35 @@
 
     <Button
         android:id="@+id/registro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="232dp"
+        android:layout_height="55dp"
+        android:backgroundTint="@color/rojo_logo"
         android:onClick="registro"
         android:text="@string/registro"
+        app:cornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.632"
+        app:layout_constraintHorizontal_bias="0.847"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.36" />
+        app:layout_constraintVertical_bias="0.112" />
+
+    <Button
+        android:id="@+id/cancelar"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="232dp"
+        android:layout_height="55dp"
+        android:onClick="cancelar"
+        android:text="@string/cancelar"
+        android:textColor="@color/rojo_logo"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.847"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.365"
+        app:strokeColor="@color/rojo_logo"
+        app:strokeWidth="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,20 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    tools:context=".Login"
+    android:background="@drawable/fondologin">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="265dp"
+        android:layout_height="227dp"
+        android:layout_marginTop="-30dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/registro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.635"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05"
+        app:srcCompat="@mipmap/logo_foreground" />
+
+    <Button
+        android:id="@+id/acceder"
+        android:layout_width="232dp"
+        android:layout_height="55dp"
+        android:backgroundTint="@color/rojo_logo"
+        android:onClick="loguearse"
+        android:text="@string/acceso"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.613"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.62" />
 
     <Button
         android:id="@+id/registro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="232dp"
+        android:layout_height="55dp"
         android:onClick="registrarse"
         android:text="@string/registro"
+        android:textColor="@color/rojo_logo"
+        app:cornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.744"
+        app:layout_constraintHorizontal_bias="0.613"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.581" />
+        app:layout_constraintVertical_bias="0.831"
+        app:strokeColor="@color/rojo_logo"
+        app:strokeWidth="2dp" />
 
     <TextView
         android:id="@+id/usuario"
@@ -27,10 +62,38 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.262"
+        app:layout_constraintHorizontal_bias="0.162"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.105" />
+        app:layout_constraintVertical_bias="0.11" />
+
+    <EditText
+        android:id="@+id/editTextUsuario"
+        android:layout_width="227dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit_text_fondo"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.077"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usuario" />
+
+    <EditText
+        android:id="@+id/editTextContrasena"
+        android:layout_width="227dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit_text_fondo"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.077"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contrasena" />
 
     <TextView
         android:id="@+id/contrasena"
@@ -40,56 +103,15 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.235"
+        app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.59" />
-
-    <EditText
-        android:id="@+id/editTextUsuario"
-        android:layout_width="227dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edit_text_fondo"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usuario" />
-
-    <EditText
-        android:id="@+id/editTextContrasena"
-        android:layout_width="227dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edit_text_fondo"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contrasena" />
-
-    <Button
-        android:id="@+id/acceder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="loguearse"
-        android:text="@string/acceso"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.729"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.245" />
+        app:layout_constraintVertical_bias="0.595" />
 
     <Button
         android:id="@+id/idioma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="129dp"
+        android:layout_height="43dp"
         android:onClick="cambiarIdioma"
         android:text="@string/idioma"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -97,6 +119,7 @@
         app:layout_constraintHorizontal_bias="0.975"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.955" />
+        app:layout_constraintVertical_bias="0.955"
+        android:backgroundTint="@color/rojo_logo"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
