@@ -12,6 +12,8 @@
 
 [Explicaciones de clases](#explicacion-clases)
 
+[Requisitos realizados](#requisitos-realizados)
+
 
 
 <h1 align="center"> Instrucción Juego: </h1>
