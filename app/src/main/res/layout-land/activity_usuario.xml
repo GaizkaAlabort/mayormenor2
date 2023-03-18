@@ -27,6 +27,7 @@
             android:layout_height="match_parent"
             app:strokeColor="@color/rojo_logo"
             app:strokeWidth="2dp"
+            tools:layout="@layout/fragment_ranking_global"
             />
 
         <LinearLayout
@@ -59,6 +60,17 @@
                 android:layout_gravity="center"
                 />
 
+            <Button
+                android:id="@+id/compartir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:onClick="compartir"
+                android:text="@string/comp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                />
+
         </LinearLayout>
 
         <fragment
@@ -67,6 +79,7 @@
             android:layout_width="match_parent"
             android:layout_weight="0.5"
             android:layout_height="match_parent"
+            tools:layout="@layout/fragment_ranking_personal"
             />
 
     </LinearLayout>

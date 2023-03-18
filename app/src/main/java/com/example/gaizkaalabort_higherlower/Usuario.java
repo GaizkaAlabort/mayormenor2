@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -87,6 +88,21 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
         Intent acceso = new Intent (this, Juego.class);
         acceso.putExtra("idiomaUsuario",idioma);
         startActivityForResult(acceso,333);
+    }
+
+    //Boton "Compartir" si el usuario tiene la app de twitter se le llevara a la aplicacion con el hashtag higherLower,
+    // sino se le abrira el twitter de la web.
+    public void compartir (View view){
+        Intent browserIntent;
+        try {
+            // get the Twitter app if possible
+            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://search?query=%23HigherLower"));
+            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            this.startActivity(browserIntent);
+        } catch (Exception e) {
+            // no Twitter app, revert to browser
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com")));
+        }
     }
 
     //Recogida de los Intent
