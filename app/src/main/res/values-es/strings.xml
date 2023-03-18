@@ -37,4 +37,5 @@
     <string name="exitoGuardado">Guardado correctamente</string>
     <string name="esp">Castellano</string>
     <string name="eng">Inglés</string>
+    <string name="comp">Compartir</string>
 </resources>
