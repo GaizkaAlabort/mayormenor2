@@ -1,4 +1,4 @@
-<em> Mayor o Menor </em>
+<em> Mayor o Menor parte 2</em>
 
 ![logo_mayormenor](https://user-images.githubusercontent.com/70901676/226133522-c4f833af-0fb8-43a3-aed9-d552b1b55d23.png)
 
@@ -12,7 +12,7 @@
 
 [Explicaciones de clases](#explicacion-clases)
 
-[Requisitos realizados](#requisitos-realizados)
+[Requisitos realizados para la segunda entrega](#requisitos-realizados)
 
 
 
@@ -47,19 +47,12 @@ realizadas en España como media en un mes.
 
 - BD: Clase para crear las tablas de la base de datos y poder insertar, consultar o borrar.
 
-<h1 align="center"> Requisitos realizados: </h1>
+<h1 align="center"> Requisitos realizados para la segunda entrega: </h1>
 
 <h2> Obligatorios: </h2>
 
-- Se usa listview tanto en ranking personal como para ranking global. En este último caso son personalizados con dos variables e imágenes.
-- Se cuenta con dos tablas de una base de datos local, una es utilizada para crear usuario (está solo tiene para añadir) y otra se utiliza para la puntuación de las partidas (se añaden después de cada partida, se listan en los rankings y se borra al mantener seleccionado un artículo en ranking personal).
-- Se usa diálogos en cambiar idioma y para aceptar cancelar la partida del juego.
-- Se usan notificaciones al terminar el juego para indicar los puntos obtenidos en el.
+- 
 
 <h2> Extras: </h2>
 
-- En la pantalla del usuario, tras loguearse, se comporta de manera distinta al estar en vertical y en horizontal. En este se usan fragmentos para mostrar los rankings.
-- La aplicación está habilitada para Español e Inglés. (Multiidioma)
-- Para almacenar las visualizaciones y a que pertenecen, se utilizan ficheros de texto.
-- Se cuenta con registro y login para acceder a la aplicación.
-- Se cuenta con un intent que te lleva a la app de twitter en caso de tenerla y sino a la página web.
+- 
