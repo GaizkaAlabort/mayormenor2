@@ -3,6 +3,11 @@ package com.example.gaizkaalabort_higherlower;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -64,51 +69,80 @@ public class Login extends AppCompatActivity
     }
 
     public void loguearse (View view){
-        BD GestorBD = new BD (this, "NombreBD", null, 1);
-        SQLiteDatabase bd = GestorBD.getReadableDatabase();
+        /*BD GestorBD = new BD (this, "NombreBD", null, 1);
+        SQLiteDatabase bd = GestorBD.getReadableDatabase();*/
 
         //Se recoge nombre usuario
         EditText nombre = findViewById(R.id.editTextUsuario);
-        String usuario = String.valueOf(nombre.getText());
-        Log.i("Login", "Usuario que quiere acceder: " + usuario);
+        String usuarioIntro = String.valueOf(nombre.getText());
+        Log.i("Login", "Usuario que quiere acceder: " + usuarioIntro);
 
         //y contraseña introducida
         EditText contra = findViewById(R.id.editTextContrasena);
         String contraseña = String.valueOf(contra.getText());
 
-        String[] argumentos = new String[] {usuario};
+        /*String[] argumentos = new String[] {usuario};
         String[] campos = new String[] {"Contraseña"};
         Cursor cu = bd.query("Usuarios", campos,"Nombre=?",argumentos,null,null,null);
         if(cu.getCount()>0){
             //SI existe usuario
             cu.moveToNext();
             String con = cu.getString(0);
+        }*/
 
-            if (Objects.equals(con, contraseña)) {
-                recogidaIdioma();
+        Data datos = new Data.Builder()
+                .putString("Nombre",usuarioIntro)
+                .putString("Contraseña",contraseña)
+                .putString("accion","acceso")
+                .build();
 
-                //Coincide contraseña: se accede a siguiente pantalla
-                cu.close();
-                bd.close();
-                Log.i("Login", "Login correcto");
-                Intent acceso = new Intent (this, Usuario.class);
-                acceso.putExtra("idiomaLogin",idioma);
-                acceso.putExtra("usuario",usuario);
-                nombre.setText("");
-                contra.setText("");
-                startActivityForResult(acceso,222);
+        OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(conexionBDWS.class)
+                                        .setInputData(datos)
+                                        .build();
 
-            } else {
-                //Contraseña incorrecta: vacia campo e informa
-                contra.setText("");
-                Toast.makeText(getApplicationContext(),getString(R.string.conIncorrecta),Toast.LENGTH_LONG).show();
-            }
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(WorkInfo workInfo) {
+                        if(workInfo != null && workInfo.getState().isFinished()){
+                            Log.i("LOGIN JSON", "Fin acceso");
+                            Log.i("LOGIN JSON", "¿Correcto? " + workInfo.getOutputData().getBoolean("valor", false) + ", " + workInfo.getOutputData().getString("texto"));
+                            Boolean resultado = workInfo.getOutputData().getBoolean("valor", false);
+                            String codigo = workInfo.getOutputData().getString("texto");
 
-        } else {
-            //Si no existe usuario: se vacian los campos e informa
+                            comprobador(resultado, codigo, usuarioIntro);
+
+                        }
+                    }
+                });
+        WorkManager.getInstance(this).enqueue(otwr);
+    }
+
+    public void comprobador(Boolean resultado, String texto, String usuarioIntroducido){
+        EditText contra = findViewById(R.id.editTextContrasena);
+        EditText nombre = findViewById(R.id.editTextUsuario);
+
+        if (resultado){
+            Log.i("Login", "Login correcto");
+            Intent acceso = new Intent (this, Usuario.class);
+            acceso.putExtra("idiomaLogin",idioma);
+            acceso.putExtra("usuario",usuarioIntroducido);
             nombre.setText("");
             contra.setText("");
-            Toast.makeText(getApplicationContext(),getString(R.string.noExisteUsuario),Toast.LENGTH_LONG).show();
+            startActivityForResult(acceso,222);
+        } else {
+            Log.i("Login", "ALGO MAL");
+
+            if(Objects.equals(texto, "conIncorrecta")){
+                contra.setText("");
+                Toast.makeText(getApplicationContext(),getString(R.string.conIncorrecta),Toast.LENGTH_LONG).show();
+            } else if(Objects.equals(texto, "noExisteUsuario")){
+                nombre.setText("");
+                contra.setText("");
+                Toast.makeText(getApplicationContext(),getString(R.string.noExisteUsuario),Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_LONG).show();
+            }
         }
     }
 

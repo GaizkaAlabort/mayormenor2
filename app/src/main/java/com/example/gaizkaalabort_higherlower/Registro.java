@@ -3,6 +3,11 @@ package com.example.gaizkaalabort_higherlower;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -17,6 +22,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.Locale;
+import java.util.Objects;
 
 //Clase de la pantalla registro
 public class Registro extends AppCompatActivity {
@@ -89,44 +95,33 @@ public class Registro extends AppCompatActivity {
 
             if(contraseña.equals(reContraseña)){
                 //Si coinciden las contraseñas:
-                //  - Inicializar base de datos
-                BD GestorBD = new BD (this, "NombreBD", null, 1);
-                SQLiteDatabase bd = GestorBD.getWritableDatabase();
 
-                //  - Realizar consulta para comprobar si existe usuario y recoger en cursor
-                String[] argumentos = new String[] {usuario};
-                String[] campos = new String[] {"Nombre"};
-                Cursor cu = bd.query("Usuarios", campos,"Nombre=?",argumentos,null,null,null);
+                Data datos = new Data.Builder()
+                        .putString("Nombre",usuario)
+                        .putString("Contraseña",contraseña)
+                        .putString("accion","crear")
+                        .build();
 
-                if(cu.getCount()>0){
-                    //Si existe el nombre de usuario introducido:
-                    //  - Vaciamos campos
-                    nombre.setText("");
-                    contra.setText("");
-                    contra2.setText("");
-                    //  - Informamos error
-                    Toast.makeText(getApplicationContext(),getString(R.string.registroNombreExiste),Toast.LENGTH_LONG).show();
+                OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(conexionBDWS.class)
+                        .setInputData(datos)
+                        .build();
 
-                } else {
-                    //Si no existe el nombre de usuario: Registramos
-                    //  - Realizamos insercion en base de datos
-                    ContentValues contenido = new ContentValues();
-                    contenido.put("Nombre",usuario);
-                    contenido.put("Contraseña",contraseña);
-                    long resultado = bd.insert("Usuarios",null,contenido);
+                WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
+                        .observe(this, new Observer<WorkInfo>() {
+                            @Override
+                            public void onChanged(WorkInfo workInfo) {
+                                if(workInfo != null && workInfo.getState().isFinished()){
+                                    Log.i("REGISTRO JSON", "Fin crear");
+                                    Log.i("REGISTRO JSON", "¿Correcto? " + workInfo.getOutputData().getBoolean("valor", false) + ", " + workInfo.getOutputData().getString("texto"));
+                                    Boolean resultado = workInfo.getOutputData().getBoolean("valor", false);
+                                    String codigo = workInfo.getOutputData().getString("texto");
 
-                    if (resultado == -1){
-                        //Notificar ERROR DE INSERCION
-                        Toast.makeText(getApplicationContext(),getString(R.string.registroFallo),Toast.LENGTH_LONG).show();
+                                    comprobador(resultado, codigo);
 
-                    } else {
-                        //Cerrar intent como resultado de registrarse correctamente
-                        Intent intent = new Intent();
-                        intent.putExtra("idiomaRegistro",idioma);
-                        setResult(-1,intent);
-                        finish();
-                    }
-                }
+                                }
+                            }
+                        });
+                WorkManager.getInstance(this).enqueue(otwr);
 
             } else {
                 //Si no coinciden las contraseñas:
@@ -135,6 +130,37 @@ public class Registro extends AppCompatActivity {
                 contra2.setText("");
                 //  - Informamos error
                 Toast.makeText(getApplicationContext(),getString(R.string.registroContraNoCoincide),Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    public void comprobador(Boolean resultado, String texto){
+        EditText nombre = findViewById(R.id.editTextUsuario);
+        EditText contra = findViewById(R.id.editTextContrasena);
+        EditText contra2 = findViewById(R.id.editTextContrasena2);
+
+        if (resultado){
+            Log.i("Registro", "Registro correcto");
+            //Cerrar intent como resultado de registrarse correctamente
+            Intent intent = new Intent();
+            intent.putExtra("idiomaRegistro",idioma);
+            setResult(-1,intent);
+            finish();
+        } else {
+            Log.i("Registro", "ALGO MAL");
+
+            if(Objects.equals(texto, "registroFallo")){
+                Toast.makeText(getApplicationContext(),getString(R.string.registroFallo),Toast.LENGTH_LONG).show();
+            } else if(Objects.equals(texto, "registroNombreExiste")){
+                //Si existe el nombre de usuario introducido:
+                //  - Vaciamos campos
+                nombre.setText("");
+                contra.setText("");
+                contra2.setText("");
+                //  - Informamos error
+                Toast.makeText(getApplicationContext(),getString(R.string.registroNombreExiste),Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_LONG).show();
             }
         }
     }
