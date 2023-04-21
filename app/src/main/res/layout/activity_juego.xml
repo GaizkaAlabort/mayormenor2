@@ -72,19 +72,18 @@
     <ImageView
         android:id="@+id/imageViewA"
         android:layout_width="289dp"
-        android:layout_height="155dp"
+        android:layout_height="177dp"
         android:layout_marginTop="4dp"
         android:src="@drawable/error"
         app:layout_constraintBottom_toTopOf="@+id/textViewA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageViewB"
         android:layout_width="289dp"
-        android:layout_height="155dp"
+        android:layout_height="177dp"
         android:layout_marginTop="10dp"
         android:src="@drawable/error"
         app:layout_constraintBottom_toTopOf="@+id/textViewB"

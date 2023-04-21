@@ -37,4 +37,8 @@
     <string name="esp">Castellano</string>
     <string name="eng">english</string>
     <string name="comp">compartir</string>
+    <string name="nueva_foto">nueva foto</string>
+    <string name="corrFirebase">subida exito</string>
+    <string name="errFirebase">error en firebase</string>
+    <string name="permisosCamara">se necesitan</string>
 </resources>

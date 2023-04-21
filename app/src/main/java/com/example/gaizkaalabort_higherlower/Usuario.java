@@ -1,26 +1,53 @@
 package com.example.gaizkaalabort_higherlower;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentActivity;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 //Clase de pantalla usuario despues de loguearse
@@ -30,11 +57,16 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
     private static String idioma;
     private static String usuario;
     SQLiteDatabase bd;
+    String currentPhotoPath;
+    int COD_CAMARA = 67;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario);
+
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         //Cargar barra de accion en la parte superior y añadir accion
         setSupportActionBar(findViewById(R.id.mytoolbar));
@@ -105,6 +137,75 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
         }
     }
 
+    /* CODIGO para obtener imagen y subirla a firebase obtenida de
+     * una serie de videos.
+     * https://www.youtube.com/watch?v=s1aOlr3vbbk&list=PLlGT4GXi8_8eopz0Gjkh40GG6O5KhL1V1&index=1&ab_channel=SmallAcademy
+     */
+    public void nueva_foto (View view){
+        //Metodo ejecutado al pulsar en cambiar fondo
+        pedirPermiso();
+    }
+
+    public void pedirPermiso(){
+        if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[] {android.Manifest.permission.CAMERA}, COD_CAMARA);
+        } else {
+            dispatchTakePictureIntent();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCod, @NonNull String[] permisos, @NonNull int[] grantResults) {
+        Log.i("PRUE", String.valueOf(requestCod));
+        if (requestCod == COD_CAMARA) {
+            Log.i("PRUE", grantResults.length + ", ," + grantResults[0]);
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                dispatchTakePictureIntent();
+            } else {
+                Toast.makeText(this, getString(R.string.permisosCamara), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private File createImageFile() throws IOException {
+        // Crear nombre para la imagen
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "IMG_" + timeStamp + "_";
+        Log.i("PRUE",imageFileName);
+        //File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Guarda el archivo
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+    @SuppressLint("QueryPermissionsNeeded")
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.gaizkaalabort_higherlower.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, 555);
+            }
+        }
+    }
+
     //Recogida de los Intent
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -161,6 +262,37 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
             //Actualizar rankings, tras llegar de ranking personal
             finish();
             startActivity(getIntent());
+        } else if (requestCode == 555) {
+            if(resultCode == Activity.RESULT_OK){
+                File imagen = new File(currentPhotoPath);
+                ImageView elImageView = findViewById(R.id.prueba);
+                elImageView.setImageURI(Uri.fromFile(imagen));
+                Log.i("URL","url de la imagen: "+ Uri.fromFile(imagen));
+
+                Intent mediaScan = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                mediaScan.setData(Uri.fromFile(imagen));
+                this.sendBroadcast(mediaScan);
+
+                StorageReference image = storageReference.child("imagenes/" + imagen.getName());
+                image.putFile(Uri.fromFile(imagen)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        image.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Log.i("Subida Firebase","El url de la imagen es " + uri.toString());
+                            }
+                        });
+
+                        Toast.makeText(Usuario.this,getString(R.string.corrFirebase),Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Usuario.this,getString(R.string.errFirebase),Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
     }
 

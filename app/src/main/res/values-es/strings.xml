@@ -38,4 +38,8 @@
     <string name="esp">Castellano</string>
     <string name="eng">Inglés</string>
     <string name="comp">Compartir</string>
+    <string name="nueva_foto">Añadir fondo</string>
+    <string name="corrFirebase">Subido correctamente</string>
+    <string name="errFirebase">Error subida</string>
+    <string name="permisosCamara">Se necesita permiso de camara para usar la camara</string>
 </resources>

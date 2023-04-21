@@ -38,4 +38,8 @@
     <string name="esp">Spanish</string>
     <string name="eng">English</string>
     <string name="comp">Share</string>
+    <string name="nueva_foto">Add Background</string>
+    <string name="corrFirebase">Upload succesfully</string>
+    <string name="errFirebase">Upload error</string>
+    <string name="permisosCamara">Camera permission is needed to use the camera</string>
 </resources>

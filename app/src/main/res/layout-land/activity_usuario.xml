@@ -52,24 +52,32 @@
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
                 android:onClick="jugar"
                 android:text="@string/jugar"
-                android:textSize="25sp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                />
+                android:textSize="25sp" />
 
             <Button
                 android:id="@+id/compartir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:onClick="compartir"
-                android:text="@string/comp"
-                android:gravity="center"
                 android:layout_gravity="center"
-                />
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:onClick="compartir"
+                android:text="@string/comp" />
+
+            <Button
+                android:id="@+id/foto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="45dp"
+                android:gravity="center"
+                android:onClick="nueva_foto"
+                android:text="@string/nueva_foto" />
 
         </LinearLayout>
 
