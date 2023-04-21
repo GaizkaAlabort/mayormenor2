@@ -55,7 +55,8 @@ realizadas en España como media en un mes.
 
 <h2> Obligatorios: </h2>
 
-- Uso de una base de datos remota para el registro y la identificación de usuarios
+- Uso de una base de datos remota para el registro y la identificación de usuarios. Se utiliza la bd remota en el login y registro para los usuarios. 
+- Captar imágenes desde la cámara, guardarlas en el servidor y mostrarlas en la aplicación. Se hace uso al pulsar el boton de "añadir fondo".
 
 <h2> Extras: </h2>
 
