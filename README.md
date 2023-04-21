@@ -45,13 +45,17 @@ realizadas en España como media en un mes.
 
 <h2> Clase de base de datos: </h2>
 
-- BD: Clase para crear las tablas de la base de datos y poder insertar, consultar o borrar.
+- BD: Clase para crear las tablas de la base de datos y poder insertar, consultar o borrar. EXCLUSIVA para la puntuación.
+- conexionBDWS: Se realiza la conexion con los php que actuan en la base de datos remota.
+  - comprobarUsuario.php: Para loguearse
+  - crearUsuario.php: Para registrarse
+  - http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/galabort001/WEB/ 
 
 <h1 align="center"> Requisitos realizados para la segunda entrega: </h1>
 
 <h2> Obligatorios: </h2>
 
-- 
+- Uso de una base de datos remota para el registro y la identificación de usuarios
 
 <h2> Extras: </h2>
 
