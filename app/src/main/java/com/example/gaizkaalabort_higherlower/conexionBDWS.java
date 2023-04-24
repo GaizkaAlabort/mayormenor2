@@ -42,12 +42,16 @@ public class conexionBDWS extends Worker {
         String parametro = "nombre=" + usu + "&contraseña=" + contra;
 
         String direccion = "";
-        if (Objects.equals(dir, "crear")){
+        if (Objects.equals(dir, "crear")) {
             direccion = "http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/galabort001/WEB/crearUsuario.php";
             Log.i("JSON", "Se accede a crearUsuario.php");
-        } else if (Objects.equals(dir, "acceso")){
+        } else if (Objects.equals(dir, "acceso")) {
             direccion = "http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/galabort001/WEB/comprobarUsuario.php";
             Log.i("JSON", "Se accede a comprobarUsuario.php");
+        } else if (Objects.equals(dir, "notificacion")){
+            parametro = "usuario=" + usu + "&puntos=" + contra;
+            direccion = "http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/galabort001/WEB/notificacion.php";
+            Log.i("JSON", "Se accede a notificacion.php");
         } else {
             Data errorAccion = new Data.Builder()
                     .putString("mens", "Se debe elegir accion del worker")
@@ -70,6 +74,7 @@ public class conexionBDWS extends Worker {
             out.flush();
 
             int statusCode = urlConnection.getResponseCode();
+            Log.i("JSON", String.valueOf(statusCode));
 
             if (statusCode == 200) {
                 InputStream inputStream = urlConnection.getInputStream();
@@ -96,12 +101,16 @@ public class conexionBDWS extends Worker {
                 out.close();
                 urlConnection.disconnect();
 
-                Data datos = new Data.Builder()
-                        .putBoolean("valor",resultado)
-                        .putString("texto",mensaje)
-                        .build();
+                if(!Objects.equals(dir, "notificacion")){
+                    Data datos = new Data.Builder()
+                            .putBoolean("valor",resultado)
+                            .putString("texto",mensaje)
+                            .build();
 
-                return Result.success(datos);
+                    return Result.success(datos);
+                } else {
+                    return Result.success();
+                }
             }
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);

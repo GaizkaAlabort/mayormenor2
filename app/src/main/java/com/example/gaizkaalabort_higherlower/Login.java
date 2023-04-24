@@ -9,17 +9,25 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -28,6 +36,7 @@ import java.util.Objects;
 public class Login extends AppCompatActivity
                           implements idiomaDialogo.idiomaListener{
     private static String idioma = "";
+    private static final String CANAL_ID = "101";
     EditText usuarioIntroducido;
     static String usuario = "";
     idiomaDialogo nuevoIdioma;
@@ -40,6 +49,8 @@ public class Login extends AppCompatActivity
         //Recogida de variable en caso de rotar o estar en segundo plano
         usuarioIntroducido = findViewById(R.id.editTextUsuario);
         usuarioIntroducido.setText(usuario);
+
+        crearCanalNotificacion();
     }
 
     @Override
@@ -129,6 +140,13 @@ public class Login extends AppCompatActivity
             acceso.putExtra("usuario",usuarioIntroducido);
             nombre.setText("");
             contra.setText("");
+            getToken();
+            FirebaseMessaging.getInstance().subscribeToTopic("ranking").addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(getApplicationContext(),"Se ha suscrito al topic de ranking.",Toast.LENGTH_LONG).show();
+                }
+            });
             startActivityForResult(acceso,222);
         } else {
             Log.i("Login", "ALGO MAL");
@@ -143,6 +161,33 @@ public class Login extends AppCompatActivity
             } else {
                 Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    private void getToken(){
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if(!task.isSuccessful()){
+                    Log.d("Token","Error al obtener token");
+                }
+
+                String token=task.getResult();
+                Log.d("Token", token);
+            }
+        });
+    }
+
+    private void crearCanalNotificacion(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "canalNotificacionFirebase";
+            String descript = "Recibido notificacion de firebase";
+            int importance= NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel canal = new NotificationChannel(CANAL_ID,name,importance);
+            canal.setDescription(descript);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(canal);
+
         }
     }
 

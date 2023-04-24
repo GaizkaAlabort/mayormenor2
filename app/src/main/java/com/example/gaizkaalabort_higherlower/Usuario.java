@@ -8,9 +8,16 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,6 +28,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -56,6 +64,7 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
 
     private static String idioma;
     private static String usuario;
+    private static final String CANAL_ID = "101";
     SQLiteDatabase bd;
     String currentPhotoPath;
     int COD_CAMARA = 67;
@@ -88,6 +97,9 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
         //Inicializamos base de datos
         BD GestorBD = new BD (this, "NombreBD", null, 1);
         bd = GestorBD.getWritableDatabase();
+
+        //Inicializar canal de notificacion
+        crearCanalNotificacion();
     }
 
     @Override
@@ -234,6 +246,35 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
                         //No esta registrada
                         Log.i("Usuario", "Registrar Puntuacion");
 
+                        //Comprobar si es el mayor
+                        String consultaMayor = "SELECT * FROM Puntuaciones WHERE puntos>" + puntuacion;
+                        Cursor ma = bd.rawQuery(consultaMayor,null);
+                        if(ma.getCount()>0){
+                            Log.i("RECORD", "Existen mejores puntuaciones");
+                        } else {
+                            Log.i("RECORD", "Nuevo Record!!");
+                            Data datos = new Data.Builder()
+                                    .putString("Nombre",usuario)
+                                    .putString("Contraseña",puntuacion)
+                                    .putString("accion","notificacion")
+                                    .build();
+
+                            OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(conexionBDWS.class)
+                                    .setInputData(datos)
+                                    .build();
+
+                            WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
+                                    .observe(this, new Observer<WorkInfo>() {
+                                        @Override
+                                        public void onChanged(WorkInfo workInfo) {
+                                            if(workInfo != null && workInfo.getState().isFinished()){
+                                                Log.i("LOGIN JSON", "Fin acceso");
+                                            }
+                                        }
+                                    });
+                            WorkManager.getInstance(this).enqueue(otwr);
+                        }
+
                         //Realizar insercion en tabla
                         ContentValues contenido = new ContentValues();
                         contenido.put("Nombre", usuario);
@@ -293,6 +334,19 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
                     }
                 });
             }
+        }
+    }
+
+    private void crearCanalNotificacion(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "canalNotificacionFirebase";
+            String descript = "Recibido notificacion de firebase";
+            int importance= NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel canal = new NotificationChannel(CANAL_ID,name,importance);
+            canal.setDescription(descript);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(canal);
+
         }
     }
 

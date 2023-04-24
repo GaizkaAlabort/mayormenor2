@@ -57,6 +57,7 @@ realizadas en España como media en un mes.
 
 - Uso de una base de datos remota para el registro y la identificación de usuarios. Se utiliza la bd remota en el login y registro para los usuarios. 
 - Captar imágenes desde la cámara, guardarlas en el servidor y mostrarlas en la aplicación. Se hace uso al pulsar el boton de "añadir fondo".
+- Uso de mensajería FCM, al conseguir un nuevo record en local se enviara una notificaciona a todo el que tenga el juego. Se hace uso de notificacion.php junto a la suscripcion a un topico. (el php hace uso de php para recoger usuario y puntos obtenidos)
 
 <h2> Extras: </h2>
 
