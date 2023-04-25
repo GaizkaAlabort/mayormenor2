@@ -20,6 +20,7 @@ public class ServicioFirebase extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
+        //Al realizar un mensaje por firebase, se recogen los titulos y mensaje. Realizando una notificacion.
         Log.d("Servicio Firebase", "Al recibir mensaje: " + remoteMessage.getNotification().getTitle());
         Log.d("Servicio Firebase", "Al recibir mensaje: " + remoteMessage.getNotification().getBody());
         showNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());

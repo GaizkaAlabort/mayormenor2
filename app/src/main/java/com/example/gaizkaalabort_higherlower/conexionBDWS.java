@@ -42,6 +42,7 @@ public class conexionBDWS extends Worker {
         String parametro = "nombre=" + usu + "&contraseña=" + contra;
 
         String direccion = "";
+        //Recoge la direccion del archivo dependiendo de la accion a realizar
         if (Objects.equals(dir, "crear")) {
             direccion = "http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/galabort001/WEB/crearUsuario.php";
             Log.i("JSON", "Se accede a crearUsuario.php");
@@ -59,6 +60,7 @@ public class conexionBDWS extends Worker {
             return Result.success(errorAccion);
         }
 
+        //Se realiza la consulta a la direccion
         HttpURLConnection urlConnection = null;
         try {
             URL destino = new URL(direccion);
@@ -69,6 +71,7 @@ public class conexionBDWS extends Worker {
             urlConnection.setDoOutput(true);
             urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
+            //Se recoge el json recibido
             PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
             out.print(parametro);
             out.flush();
@@ -87,9 +90,10 @@ public class conexionBDWS extends Worker {
                 String response = stringBuilder.toString();
                 Log.i("JSON", response);
 
-                // Procesar la respuesta según tus necesidades
+                // Procesar la respuesta según las necesidades
                 JSONObject jsonResponse = new JSONObject(response);
 
+                //value devuelve true si no hubo error y false si ocurrio alguno.
                 Boolean resultado = (Boolean) jsonResponse.get("value");
                 Log.i("JSON", "¿Correcto? " + resultado);
 

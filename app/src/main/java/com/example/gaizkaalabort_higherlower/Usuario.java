@@ -249,6 +249,7 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
                         //Comprobar si es el mayor
                         String consultaMayor = "SELECT * FROM Puntuaciones WHERE puntos>" + puntuacion;
                         Cursor ma = bd.rawQuery(consultaMayor,null);
+                        //Al acabar la partida si el resultado es el mayor comparado con los demas, entonces se manda notificacion.
                         if(ma.getCount()>0){
                             Log.i("RECORD", "Existen mejores puntuaciones");
                         } else {

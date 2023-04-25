@@ -49,7 +49,9 @@ realizadas en España como media en un mes.
 - conexionBDWS: Se realiza la conexion con los php que actuan en la base de datos remota.
   - comprobarUsuario.php: Para loguearse
   - crearUsuario.php: Para registrarse
+  - notificacion.php: Para realizar la notificacion a todos los usuarios de la aplicacion
   - http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/galabort001/WEB/ 
+- ServicioFirebase:  Servicio para recoger la info que se recibe de cloud messaging para enviar la notificacion
 
 <h1 align="center"> Requisitos realizados para la segunda entrega: </h1>
 
