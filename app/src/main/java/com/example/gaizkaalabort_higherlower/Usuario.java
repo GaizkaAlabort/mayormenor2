@@ -65,6 +65,7 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
     private static String idioma;
     private static String usuario;
     private static final String CANAL_ID = "101";
+    private static String enlace = "";
     SQLiteDatabase bd;
     String currentPhotoPath;
     int COD_CAMARA = 67;
@@ -323,6 +324,7 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
                             @Override
                             public void onSuccess(Uri uri) {
                                 Log.i("Subida Firebase","El url de la imagen es " + uri.toString());
+                                enlace = uri.toString();
                             }
                         });
 
@@ -335,6 +337,17 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
                     }
                 });
             }
+        }
+    }
+
+    public void goToUrl (View view) {
+        if (!enlace.equals("")){
+            Uri uriUrl = Uri.parse(enlace);
+            Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+            launchBrowser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            this.startActivity(launchBrowser);
+        } else {
+            Log.i("ENLACE","La imagen no tiene enlace");
         }
     }
 
