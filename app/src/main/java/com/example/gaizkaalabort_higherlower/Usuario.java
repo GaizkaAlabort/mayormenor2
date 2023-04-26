@@ -100,7 +100,7 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
         bd = GestorBD.getWritableDatabase();
 
         //Inicializar canal de notificacion
-        crearCanalNotificacion();
+        //crearCanalNotificacion();
     }
 
     @Override
@@ -248,7 +248,7 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
                         Log.i("Usuario", "Registrar Puntuacion");
 
                         //Comprobar si es el mayor
-                        String consultaMayor = "SELECT * FROM Puntuaciones WHERE puntos>" + puntuacion;
+                        String consultaMayor = "SELECT * FROM Puntuaciones WHERE puntos>=" + puntuacion;
                         Cursor ma = bd.rawQuery(consultaMayor,null);
                         //Al acabar la partida si el resultado es el mayor comparado con los demas, entonces se manda notificacion.
                         if(ma.getCount()>0){
