@@ -14,6 +14,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationChannel;
@@ -69,6 +70,7 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
     SQLiteDatabase bd;
     String currentPhotoPath;
     int COD_CAMARA = 67;
+    int COD_READ = 66;
     StorageReference storageReference;
 
     @Override
@@ -159,11 +161,14 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
         pedirPermiso();
     }
 
-    public void pedirPermiso(){
-        if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[] {android.Manifest.permission.CAMERA}, COD_CAMARA);
-        } else {
+    public void pedirPermiso() {
+        int PermisoCamara = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        int PermisoGaleria = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (PermisoCamara == PackageManager.PERMISSION_GRANTED && PermisoGaleria == PackageManager.PERMISSION_GRANTED){
             dispatchTakePictureIntent();
+        } else {
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, COD_CAMARA);
         }
     }
 
@@ -171,7 +176,6 @@ public class Usuario extends AppCompatActivity implements Ranking_global_fragmen
     public void onRequestPermissionsResult(int requestCod, @NonNull String[] permisos, @NonNull int[] grantResults) {
         Log.i("PRUE", String.valueOf(requestCod));
         if (requestCod == COD_CAMARA) {
-            Log.i("PRUE", grantResults.length + ", ," + grantResults[0]);
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 dispatchTakePictureIntent();
             } else {

@@ -69,16 +69,6 @@
                 android:onClick="compartir"
                 android:text="@string/comp" />
 
-            <Button
-                android:id="@+id/foto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="45dp"
-                android:gravity="center"
-                android:onClick="nueva_foto"
-                android:text="@string/nueva_foto" />
-
         </LinearLayout>
 
         <fragment
